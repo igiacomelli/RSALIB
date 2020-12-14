@@ -22,9 +22,9 @@ def test_functionality(keySize, message):
     print("decrypted = ")
     print(decrypt(privateKey, encrypted))
 
-for i in range(20):
+for i in range(5, 20):
     try:
-        test_functionality(i, "wtf")
+        test_functionality(i, "hello world")
         print("")
     except:
         print("Error")

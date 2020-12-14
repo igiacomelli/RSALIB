@@ -1,6 +1,4 @@
 import random
-from testing_functions import execTime
-import time
 
 
 #function to test if a given number is prime
@@ -92,7 +90,7 @@ def isPrimeExt(n):
 def makeLargePrime(keySize):
     while True:
         n = random.randrange(2**(keySize-1), 2**(keySize))
-        if isPrime(n):
+        if isPrimeExt(n):
             return n
 
 def genKeys(keySize):
@@ -168,5 +166,6 @@ def test_functionality(keySize):
     print(encrypted)
     print("decrypted = ")
     print(RSADec(privateKey, encrypted))
+
 
 
