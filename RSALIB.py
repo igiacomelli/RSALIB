@@ -1,4 +1,7 @@
 import random
+from testing_functions import execTime
+import time
+
 
 #function to test if a given number is prime
 def isPrime(n):
@@ -34,7 +37,7 @@ def smallPrime(keySize):
     while True:
         #getting a random number based on key size
         pc = randNum(keySize)
-        # list of cached primes up to 1000 to be used for isMillerRabin()\
+        # list of cached primes up to 1000 to be used for isMillerRabin()
         minPrime = 2
         maxPrime = 1000
         cached_primes = [i for i in range(minPrime, maxPrime) if isPrime(i)]
@@ -75,6 +78,8 @@ def isPrimeExt(n):
     maxPrime = 1000
     cached_primes = [i for i in range(minPrime, maxPrime) if isPrime(i)]
 
+    #testing if a number is prime. if a number is small enough then it can be directly teted, otherwise it must be inferred
+    #using isMillerRabin()
     if n < 2:
         return False
     if n in cached_primes:
@@ -111,8 +116,8 @@ def genKeys(keySize):
     #making the keys and returning them in a tuple of tuples
     publicKey = (n, e)
     privateKey = (n, d)
-    print("pubkey: ", publicKey)        #for testing
-    print("privkey: ", privateKey)      #for testing
+    #print("pubkey: ", publicKey)        #for testing
+    #print("privkey: ", privateKey)      #for testing
     return(publicKey, privateKey)
 
 #encrypts a string
@@ -132,6 +137,7 @@ def RSADec(privateKey, encrypted):
     decryptedCharacter = ''
     decryptedInteger = 0
     for i in encrypted:
+        #print("iteration")                         #for testing
         decryptedInteger = (int(i)**d) % n
         decryptedCharacter = chr(decryptedInteger)
         decrypted += decryptedCharacter
@@ -150,12 +156,17 @@ def convertFromBytes(bytes):
 
 #statement below demonstrating functionality
 
-keys = genKeys(10)
-publicKey, privateKey = keys
-message = "wtf"
-print(message)
-print("encrypted = ")
-encrypted = RSAEnc(publicKey, message)
-print(encrypted)
-print("decrypted = ")
-print(RSADec(privateKey, encrypted))
+
+def test_functionality(keySize):
+    print("testing key size of ", keySize)
+    keys = genKeys(keySize)
+    publicKey, privateKey = keys
+    message = "hello world"
+    print("message: ", message)
+    print("encrypted = ")
+    encrypted = RSAEnc(publicKey, message)
+    print(encrypted)
+    print("decrypted = ")
+    print(RSADec(privateKey, encrypted))
+
+
